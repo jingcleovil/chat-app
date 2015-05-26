@@ -11,6 +11,7 @@ class ChatBox extends React.Component {
             chatMessage: ''
         }
         this.props = props;
+        this.state.disabled = props.disabled || false;
         this._sendMessage = this._sendMessage.bind(this);
         this._onChange = this._onChange.bind(this);
     }
@@ -40,6 +41,7 @@ class ChatBox extends React.Component {
         return (
             <div style={styles.chatboxHandle}>
                 <input
+                    disabled={this.state.disabled}
                     onChange={this._onChange}
                     value={this.state.chatMessage}
                     onKeyDown={this._sendMessage}
@@ -64,6 +66,5 @@ const styles = StyleSheet.create({
         borderWidth: 0
     }
 })
-
 
 export default ChatBox;

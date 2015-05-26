@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#ccc',
         position: 'fixed',
-        bottom: -18,
+        bottom: 0,
         right: 17
     },
     wrapper: {

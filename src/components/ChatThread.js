@@ -1,4 +1,5 @@
 import React from 'react';
+import ScrollArea from 'react-scrollbar';
 import ChatStore from '../stores/ChatStore';
 import ChatThreadItem from './ChatThreadItem';
 
@@ -47,17 +48,29 @@ class ChatThread extends React.Component {
         }
 
 		return (
-			<div style={styles.thread}>
-				<div className="thread" style={styles.threadHandle}>
-                    { thread() }
-				</div>
-			</div>
+            <ScrollArea
+                speed={0.8}
+                className="area"
+                contentClassName="content"
+                horizontal={false}>
+                <div style={styles.thread}>
+                    <div className="thread" style={styles.threadHandle}>
+                        { thread() }
+                    </div>
+                </div>
+            </ScrollArea>
+
 		);
 	}
 }
 
 const styles = StyleSheet.create({
 	thread: {
+        borderWidth: 1,
+        borderLeftColor: '#ccc',
+        borderRightColor: '#ccc',
+        borderBottomColor: '#f2f2f2',
+        borderTopColor: '#f2f2f2',
 		height: 220,
         background: '#f2f2f2',
         padding: 10,
