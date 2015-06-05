@@ -1,5 +1,4 @@
 import React from 'react';
-import ScrollArea from 'react-scrollbar';
 import ChatStore from '../stores/ChatStore';
 import ChatThreadItem from './ChatThreadItem';
 
@@ -18,6 +17,7 @@ class ChatThread extends React.Component {
         this.state = threadState();
 		this.props = props;
         this._onChange = this._onChange.bind(this);
+        this._scrollToBottom = this._scrollToBottom.bind(this);
 	}
 
     componentDidMount() {
@@ -28,8 +28,17 @@ class ChatThread extends React.Component {
         ChatStore.unlisten(this._onChange);
     }
 
+    componentDidUpdate() {
+        this._scrollToBottom();
+    }
+
     _onChange() {
         this.setState(threadState());
+    }
+
+    _scrollToBottom() {
+        var thread = React.findDOMNode(this.refs.thread);
+        thread.scrollTop = thread.scrollHeight;
     }
 
 	render() {
@@ -48,18 +57,11 @@ class ChatThread extends React.Component {
         }
 
 		return (
-            <ScrollArea
-                speed={0.8}
-                className="area"
-                contentClassName="content"
-                horizontal={false}>
-                <div style={styles.thread}>
-                    <div className="thread" style={styles.threadHandle}>
-                        { thread() }
-                    </div>
+            <div ref="thread" style={this.props.isHidden ? styles.hide : styles.thread}>
+                <div className="thread" style={styles.threadHandle}>
+                    { thread() }
                 </div>
-            </ScrollArea>
-
+            </div>
 		);
 	}
 }
@@ -71,17 +73,18 @@ const styles = StyleSheet.create({
         borderRightColor: '#ccc',
         borderBottomColor: '#f2f2f2',
         borderTopColor: '#f2f2f2',
-		height: 220,
-        background: '#f2f2f2',
-        padding: 10,
-        position: 'relative',
-        overflow: 'hidden'
+		height: 238,
+        background: '#e5e5e5',
+        padding: 5,
+        overflowY: 'auto'
 	},
 	threadHandle: {
-		position: 'absolute',
 		bottom: 0,
-		width: 225
-	}
+		width: 240
+	},
+    hide: {
+        display: 'none'
+    }
 });
 
 export default ChatThread;

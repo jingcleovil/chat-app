@@ -1,4 +1,5 @@
 import React from 'react';
+import ChatAction from '../actions/ChatAction';
 
 const StyleSheet = { create: (e) => e };
 
@@ -8,17 +9,21 @@ class ChatHeader extends React.Component {
 		super(props);
         this.props = props;
         this._closeChat = this._closeChat.bind(this);
+        this._changeState = this._changeState.bind(this);
 	}
 
     _closeChat(e) {
         e.preventDefault();
-        console.log('test');
+    }
+
+    _changeState() {
+        ChatAction.minimizeWindow();
     }
 
 	render() {
 		return (
 			<div style={styles.handle}>
-				<span style={styles.nameHandle} className="clickable">{this.props.username}</span>
+				<span onClick={this._changeState} style={styles.nameHandle} className="clickable">{this.props.username}</span>
                 <span style={styles.headerAction}>
                     <a href="#" onClick={this._closeChat} style={styles.headerActionAnchor}>&times;</a>
                 </span>
@@ -32,21 +37,18 @@ const styles = StyleSheet.create({
 		borderTopLeftRadius: 3,
 		borderTopRightRadius: 3,
         width: 250,
-        height: 26,
+        height: 30,
         borderBottomWidth: 1,
         borderColor: '#ccc',
-        backgroundColor: '#333',
+        backgroundColor: '#4a4e4e',
         color: '#fff',
-        fontSize: 13,
+        fontSize: 14,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-start',
     },
     nameHandle: {
-    	paddingLeft: 5,
-    	paddingRight: 5,
-    	paddingBottom: 5,
-    	paddingTop: 5,
+    	padding: 6,
     	width: 220,
     },
     headerAction: {

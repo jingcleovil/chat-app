@@ -1,5 +1,5 @@
 import React from 'react';
-const StyleSheet = { create: (e) => e };
+const StyleSheet = {create: (e) => e};
 
 class ChatThreadItem extends React.Component {
 
@@ -10,9 +10,10 @@ class ChatThreadItem extends React.Component {
 
     render() {
         return (
-            <div key={this.props.key} style={styles.threadItem}>
-                <b>{this.props.name}</b>
-                { this.props.message }
+            <div className="threadItem clearfix" key={this.props.key} style={styles.threadItem}>
+                <div className="threadMsg" style={styles.threadMsg}>
+                    { this.props.message }
+                </div>
             </div>
         )
     }
@@ -20,13 +21,21 @@ class ChatThreadItem extends React.Component {
 
 const styles = StyleSheet.create({
     threadItem: {
+        display: 'block'
+    },
+    threadMsg: {
         padding: 5,
         fontSize: 12,
         background: '#fff',
         marginBottom: 10,
-        borderRadius: 5,
+        borderRadius: 3,
         borderWidth: 1,
-        borderColor: '#ddd'
+        borderColor: '#ddd',
+        color: '#262626',
+        position: 'relative',
+        display: 'inline-block',
+        float: 'right',
+        marginRight: 5
     }
 });
 

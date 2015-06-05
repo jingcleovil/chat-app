@@ -5,13 +5,20 @@ class ChatStore {
 
     constructor() {
         this.bindListeners({
-            handleSendMessage: ChatAction.SEND_MESSAGE
+            handleSendMessage: ChatAction.SEND_MESSAGE,
+            handleMinimize: ChatAction.MINIMIZE_WINDOW
         })
+
         this.thread = [];
+        this.minimizeWindow = false;
     }
 
     handleSendMessage(message) {
         this.thread.push(message);
+    }
+
+    handleMinimize() {
+        this.minimizeWindow = (!this.minimizeWindow ? true : false);
     }
 }
 
