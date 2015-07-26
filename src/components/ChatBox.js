@@ -1,26 +1,29 @@
 import React from 'react';
 import ChatAction from '../actions/ChatAction';
+import ChatStore from '../stores/ChatStore';
+import KeyGen from '../utils/KeyGenerator';
 
 const StyleSheet = {create: (e) => e}
 
 let getState = () => {
     return {
-        chatMessage: ''
+        chatMessage: '',
+        session: ChatStore.getState().session,
+        disabled: false
     }
 }
 
 class ChatBox extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = getState();
-        this.props = props;
-        this.state.disabled = props.disabled || false;
-        this._sendMessage = this._sendMessage.bind(this);
-        this._onChange = this._onChange.bind(this);
+    state = getState();
+
+    static defaultProps = {}
+
+    componentDidMount() {
+        React.findDOMNode(this.refs.chatBox).focus();
     }
 
-    _sendMessage(e) {
+    _sendMessage = (e) => {
         if (e.keyCode === 13) {
 
             let message = e.target.value;
@@ -29,9 +32,14 @@ class ChatBox extends React.Component {
                 return;
             }
 
+            if (!this.state.session) {
+                console.warn('Session not set');
+                return;
+            }
+
             ChatAction.sendMessage({
-                key: (+new Date() + Math.floor(Math.random() * 999999)).toString(36),
-                name: this.props.username,
+                session: this.state.session,
+                name: this.props.from,
                 message: message
             });
 
@@ -47,7 +55,7 @@ class ChatBox extends React.Component {
         }
     }
 
-    _onChange(e) {
+    _onChange = (e) => {
         this.setState({
             chatMessage: e.target.value
         })
@@ -72,7 +80,8 @@ class ChatBox extends React.Component {
 const styles = StyleSheet.create({
     chatboxHandle: {
         borderWidth: 1,
-        borderColor: '#ccc'
+        borderColor: '#ccc',
+        borderStyle: 'solid'
     },
     chatbox: {
         width: 200,

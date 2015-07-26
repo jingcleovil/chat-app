@@ -23,7 +23,7 @@ class ChatHeader extends React.Component {
 	render() {
 		return (
 			<div style={styles.handle}>
-				<span onClick={this._changeState} style={styles.nameHandle} className="clickable">{this.props.username}</span>
+				<span onClick={this._changeState} style={styles.nameHandle} className="clickable">{this.props.from}</span>
                 <span style={styles.headerAction}>
                     <a href="#" onClick={this._closeChat} style={styles.headerActionAnchor}>&times;</a>
                 </span>
@@ -31,6 +31,7 @@ class ChatHeader extends React.Component {
 		);
 	}
 }
+
 
 const styles = StyleSheet.create({
     handle: {

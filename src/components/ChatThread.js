@@ -1,12 +1,7 @@
 import React from 'react';
 import ChatStore from '../stores/ChatStore';
 import ChatThreadItem from './ChatThreadItem';
-
-let threadState = () => {
-    return {
-        thread: ChatStore.getState().thread
-    }
-}
+import ChatAction from '../actions/ChatAction';
 
 const StyleSheet = { create: (e) => e };
 
@@ -14,26 +9,13 @@ class ChatThread extends React.Component {
 
 	constructor(props) {
 		super(props);
-        this.state = threadState();
 		this.props = props;
-        this._onChange = this._onChange.bind(this);
         this._scrollToBottom = this._scrollToBottom.bind(this);
 	}
 
-    componentDidMount() {
-        ChatStore.listen(this._onChange);
-    }
-
-    componentWillUnmount() {
-        ChatStore.unlisten(this._onChange);
-    }
 
     componentDidUpdate() {
         this._scrollToBottom();
-    }
-
-    _onChange() {
-        this.setState(threadState());
     }
 
     _scrollToBottom() {
@@ -42,15 +24,15 @@ class ChatThread extends React.Component {
     }
 
 	render() {
-
-        let thread = () => {
-            let thread = this.state.thread;
-            return Object.keys(thread).map((item) => {
+        
+        let showThread = () => {
+            let thread = this.props.thread;
+            return Object.keys(thread).map((index) => {
                 return (
                     <ChatThreadItem
-                        key={thread[item].key}
-                        name={thread[item].name}
-                        message={thread[item].message}
+                        key={index}
+                        name={thread[index].name}
+                        message={thread[index].message}
                         />
                 )
             })
@@ -59,7 +41,7 @@ class ChatThread extends React.Component {
 		return (
             <div ref="thread" style={this.props.isHidden ? styles.hide : styles.thread}>
                 <div className="thread" style={styles.threadHandle}>
-                    { thread() }
+                    { showThread() }
                 </div>
             </div>
 		);
@@ -76,7 +58,8 @@ const styles = StyleSheet.create({
 		height: 238,
         background: '#e5e5e5',
         padding: 5,
-        overflowY: 'auto'
+        overflowY: 'auto',
+        borderStyle: 'solid'
 	},
 	threadHandle: {
 		bottom: 0,
