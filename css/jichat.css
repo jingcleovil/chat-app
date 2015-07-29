@@ -35,7 +35,7 @@ body {
 }
 
 .chat-app .threadMsg:after, .chat-app .threadMsg:before {
-    left: 100%;
+    right: 100%;
     top: 50%;
     border: solid transparent;
     content: " ";
@@ -45,18 +45,52 @@ body {
     pointer-events: none;
 }
 
+.chat-app .threadMsg {
+    background: #fff;
+    padding: 5;
+    font-size: 12px;
+    color: #262626;
+    position: relative;
+    border: 1px solid #ddd;
+    display: inline-block;
+    margin-left: 5px;
+}
+
 .chat-app .threadMsg:after {
     border-color: rgba(255, 255, 255, 0);
-    border-left-color: #fff;
+    border-right-color: #fff;
     border-width: 5px;
     margin-top: -5px;
 }
 
 .chat-app .threadMsg:before {
     border-color: rgba(217, 217, 217, 0);
+    border-right-color: #d9d9d9;
+    border-width: 6px;
+    margin-top: -6px;
+}
+
+.chat-app .right:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-left-color: #dbedfe;
+    border-width: 5px;
+    margin-top: -5px;
+}
+
+.chat-app .right:before {
+    border-color: rgba(217, 217, 217, 0);
     border-left-color: #d9d9d9;
     border-width: 6px;
     margin-top: -6px;
+}
+
+.chat-app .right {
+    background: #dbedfe;
+    float: right;
+}
+
+.chat-app .right:after, .chat-app .right:before {
+    left: 100%;
 }
 
 .clearfix {

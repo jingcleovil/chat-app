@@ -1,4 +1,6 @@
 import React from 'react';
+import Storage from '../utils/Storage';
+
 const StyleSheet = {create: (e) => e};
 
 class ChatThreadItem extends React.Component {
@@ -9,9 +11,18 @@ class ChatThreadItem extends React.Component {
     }
 
     render() {
+        let name = Storage.get('user').name;
+
+        let cls = () => {
+            if(name === this.props.name) {
+                return 'right';
+            }
+            return '';
+        }
+
         return (
             <div className="threadItem clearfix" key={this.props.key} style={styles.threadItem}>
-                <div className="threadMsg" style={styles.threadMsg}>
+                <div className={`threadMsg ${cls()}`} style={styles.threadMsg}>
                     { this.props.message }
                 </div>
             </div>
@@ -24,17 +35,8 @@ const styles = StyleSheet.create({
         display: 'block'
     },
     threadMsg: {
-        padding: 5,
-        fontSize: 12,
-        background: '#fff',
         marginBottom: 10,
         borderRadius: 3,
-        borderWidth: 1,
-        borderColor: '#ddd',
-        color: '#262626',
-        position: 'relative',
-        display: 'inline-block',
-        float: 'right',
         marginRight: 5
     }
 });

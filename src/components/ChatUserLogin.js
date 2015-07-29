@@ -67,7 +67,7 @@ class ChatUserLogin extends React.Component {
                         rows="7"
                         />
                     <br/>
-                    <button>Login</button>
+                    <button>Start Chat</button>
                 </form>
             </div>
         )

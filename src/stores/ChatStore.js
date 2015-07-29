@@ -31,7 +31,7 @@ class ChatStore {
 
     handleChatLogin(user) {
         this.isLogin = true;
-        this.nickname = user.nickname;
+        this.name = user.name;
         this.session = user.session;
     }
 
